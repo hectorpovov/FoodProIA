@@ -12,48 +12,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodProIA.FoodProIA.dto.request.UsuarioRequestDTO;
-import com.foodProIA.FoodProIA.dto.response.UsuarioResponseDTO;
-import com.foodProIA.FoodProIA.service.UsuarioService;
+import com.foodProIA.FoodProIA.dto.request.FuncionarioRequestDTO;
+import com.foodProIA.FoodProIA.dto.response.FuncionarioResponseDTO;
+import com.foodProIA.FoodProIA.service.FuncionarioService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(value = "/usuarios")
+@RequestMapping(value = "/funcionarios")
 @RequiredArgsConstructor
-public class UsuarioController {
+public class FuncionarioController {
 
-    
-    private final UsuarioService usuarioService;
-
+    private final FuncionarioService funcionarioService;
 
     @GetMapping
-    public List<UsuarioResponseDTO> listarTodos(){
-        return usuarioService.listarTodos();
+    public List<FuncionarioResponseDTO> listarTodos(){
+        return funcionarioService.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public UsuarioResponseDTO retornaUsuario(@PathVariable("id") Long id){
-        return usuarioService.buscarPorId(id);
+    public FuncionarioResponseDTO retornaFuncionario(@PathVariable("id") Long id){
+        return funcionarioService.buscarPorId(id);
     }
 
-
     @PostMapping
-    public UsuarioResponseDTO inserir(@Valid @RequestBody UsuarioRequestDTO usuario){
-
-        return usuarioService.inserir(usuario);
-
+    public FuncionarioResponseDTO inserir(@Valid @RequestBody FuncionarioRequestDTO funcionario){
+        return funcionarioService.inserir(funcionario);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDTO> alterar(@PathVariable("id") Long id, @Valid @RequestBody UsuarioRequestDTO usuario){
-        return ResponseEntity.ok(usuarioService.alterar(id, usuario));
+    public ResponseEntity<FuncionarioResponseDTO> alterar(@PathVariable("id") Long id, @Valid @RequestBody FuncionarioRequestDTO funcionario){
+        return ResponseEntity.ok(funcionarioService.alterar(id, funcionario));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable("id") Long id){
-        usuarioService.excluir(id);
+        funcionarioService.excluir(id);
         return ResponseEntity.noContent().build();
     }
 

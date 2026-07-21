@@ -11,12 +11,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SetorRequestDTO {
+public class SetorCreateRequestDTO {
 
     @NotBlank
     private String nome;
 
-    private String Descricao;
+    private String descricao;
     
     @NotNull
     private Long idEmpresa;

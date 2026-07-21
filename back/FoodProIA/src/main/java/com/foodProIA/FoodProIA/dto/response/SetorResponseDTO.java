@@ -14,14 +14,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SetorResponseDTO {
 
-    private Long Id;
+    private Long id;
     private String nome;
     private String descricao;
     private List<FuncionarioResponseDTO> funcionarios;
     private EmpresaSummaryDTO empresa;
 
     public SetorResponseDTO( SetorEntity setor){
-        this.Id = setor.getId();
+        this.id = setor.getId();
         this.nome = setor.getNome();
         this.descricao = setor.getDescricao();
 

@@ -2,7 +2,6 @@ package com.foodProIA.FoodProIA.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,19 +10,21 @@ import com.foodProIA.FoodProIA.dto.request.UsuarioRequestDTO;
 import com.foodProIA.FoodProIA.dto.response.UsuarioResponseDTO;
 import com.foodProIA.FoodProIA.entity.UsuarioEntity;
 import com.foodProIA.FoodProIA.exception.CpfJaCadastradoException;
-import com.foodProIA.FoodProIA.exception.EmailJaCadastradoException;
+import com.foodProIA.FoodProIA.exception.EmailUsuarioJaCadastradoException;
 import com.foodProIA.FoodProIA.exception.UsuarioNaoEncontradoException;
 import com.foodProIA.FoodProIA.repository.UsuarioRepository;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioService {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
     
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UsuarioRepository usuarioRepository;
+      
+    private final PasswordEncoder passwordEncoder;
 
     public List<UsuarioResponseDTO>  listarTodos(){
         List<UsuarioEntity> usuarios =  usuarioRepository.findAll();
@@ -34,7 +35,7 @@ public class UsuarioService {
     public UsuarioResponseDTO inserir(UsuarioRequestDTO usuario){
 
         if(usuarioRepository.existsByEmail(usuario.getEmail())){
-            throw new EmailJaCadastradoException();
+            throw new EmailUsuarioJaCadastradoException();
         }
 
         if(usuarioRepository.existsByCpf(usuario.getCpf())){
@@ -64,7 +65,7 @@ public class UsuarioService {
         if (!usuarioEntity.getEmail().equals(usuario.getEmail())
                 && usuarioRepository.existsByEmail(usuario.getEmail())) {
 
-            throw new EmailJaCadastradoException();
+            throw new EmailUsuarioJaCadastradoException();
         }
 
         if (!usuarioEntity.getCpf().equals(usuario.getCpf())

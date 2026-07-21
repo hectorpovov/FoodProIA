@@ -3,6 +3,7 @@ package com.foodProIA.FoodProIA.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,8 +31,10 @@ public class EmpresaRequestDTO {
     @NotBlank
     private String telefone;
 
-    @NotBlank
     private String observacoes;
+
+    @NotNull
+    private EnderecoRequestDTO endereco;
 
 
 }

@@ -20,6 +20,7 @@ public class EmpresaResponseDTO {
     private String email;
     private String telefone;
     private String observacoes;
+    private EnderecoResponseDTO endereco;
     private List<FuncionarioResponseDTO> funcionarios;
     private List<SetorResponseDTO> setores;
     
@@ -42,6 +43,11 @@ public class EmpresaResponseDTO {
                               .stream()
                               .map(SetorResponseDTO::new)
                               .toList();
+
+                              
+        if(empresa.getEndereco() != null) {
+            this.endereco = new EnderecoResponseDTO(empresa.getEndereco());
+        }
 
     }
 

@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FuncionarioRequestDTO {
+public class FuncionarioRequestDTO extends UsuarioRequestDTO{
     
     @NotBlank
     private String cargo;
@@ -26,4 +26,7 @@ public class FuncionarioRequestDTO {
     
     @NotNull
     private Long idEmpresa;
+
+    @NotNull
+    private EnderecoRequestDTO endereco;
 }

@@ -1,13 +1,14 @@
 package com.foodProIA.FoodProIA.entity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,8 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class FuncionarioEntity extends UsuarioEntity{
+public class FuncionarioEntity extends UsuarioEntity{
 
     @Column(nullable = false)
     private String cargo;
@@ -34,4 +34,23 @@ public abstract class FuncionarioEntity extends UsuarioEntity{
     @ManyToOne
     @JoinColumn(name = "empresa_id", nullable = false)
     private EmpresaEntity empresa;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", unique = true, nullable = false)
+    private EnderecoEntity endereco;
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(this.getId());
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj) return true;
+        if(obj == null) return false;
+        if(getClass()!= obj.getClass()) return false;
+
+        FuncionarioEntity other = (FuncionarioEntity) obj;
+        return Objects.equals(this.getId(), other.getId());
+    }
 }

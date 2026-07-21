@@ -6,4 +6,6 @@ import com.foodProIA.FoodProIA.entity.SetorEntity;
 
 public interface SetorRepository extends JpaRepository<SetorEntity,Long>{
 
+    boolean existsByNomeAndEmpresaId(String nome, Long empresaId);
+
 }

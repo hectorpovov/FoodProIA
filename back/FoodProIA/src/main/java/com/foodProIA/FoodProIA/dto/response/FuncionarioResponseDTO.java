@@ -23,6 +23,7 @@ public class FuncionarioResponseDTO extends UsuarioResponseDTO{
 
     private SetorSummaryDTO setor;
     private EmpresaSummaryDTO empresa;
+    private EnderecoResponseDTO endereco;
 
     public FuncionarioResponseDTO(FuncionarioEntity funcionario){
 
@@ -39,6 +40,10 @@ public class FuncionarioResponseDTO extends UsuarioResponseDTO{
         this.custoPorHora = funcionario.getCustoPorHora();
         this.setor = new SetorSummaryDTO(funcionario.getSetor());
         this.empresa = new EmpresaSummaryDTO(funcionario.getEmpresa());
+
+        if(funcionario.getEndereco() != null) {
+            this.endereco = new EnderecoResponseDTO(funcionario.getEndereco());
+        }
     }
 
 

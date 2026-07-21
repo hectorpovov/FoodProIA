@@ -1,8 +1,6 @@
 package com.foodProIA.FoodProIA.entity;
 
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -10,46 +8,53 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "TB_SETOR")
-@Getter
+
 @NoArgsConstructor
-public class SetorEntity {
+@Getter
+
+@Entity
+@Table(name = "TB_ENDERECO")
+public class EnderecoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
+    @Setter
+    private String complemento;
+
     @Column(nullable = false)
-    @Lob
     @Setter
-    private String nome;
+    private String numero;
 
-    @Column
+    @Column(nullable = false)
     @Setter
-    private String descricao;
-    
-    @OneToMany(mappedBy = "setor")
-    private List<FuncionarioEntity> funcionarios = new ArrayList<>();;
+    private String rua;
 
-    @ManyToOne
-    @JoinColumn(name = "id_empresa", nullable = false)
+    @Column(nullable = false)
     @Setter
-    private EmpresaEntity empresa;
+    private String bairro;
 
-    public void adicionaFuncionario(FuncionarioEntity funcionario){
-        funcionarios.add(funcionario);
-        funcionario.setSetor(this);
-    }
+    @Column(nullable = false)
+    @Setter
+    private String cidade;
+
+    @Column(nullable = false)
+    @Setter
+    private String estado;
+
+    @Column(nullable = false)
+    @Setter
+    private String pais;
+
+    @Column(nullable = false)
+    @Setter
+    private String cep;
 
     @Override
     public int hashCode(){
@@ -62,7 +67,7 @@ public class SetorEntity {
         if(obj == null) return false;
         if(getClass()!= obj.getClass()) return false;
 
-        SetorEntity other = (SetorEntity) obj;
+        EnderecoEntity other = (EnderecoEntity) obj;
         return Objects.equals(id, other.id);
     }
 }
