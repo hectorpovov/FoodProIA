@@ -34,7 +34,7 @@ public class FuncionarioResponseDTO extends UsuarioResponseDTO{
         setId(funcionario.getId());
         setNome(funcionario.getNome());
         setTelefone(funcionario.getTelefone());
-        setPapel(funcionario.getPapel());
+        setRole(funcionario.getRole());
 
         this.cargo = funcionario.getCargo();
         this.custoPorHora = funcionario.getCustoPorHora();

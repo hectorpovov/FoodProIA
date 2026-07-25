@@ -81,8 +81,8 @@ public class FuncionarioService {
         funcionario.setTelefone(dto.getTelefone());
         funcionario.setEmail(dto.getEmail());
         funcionario.setDataNascimento(dto.getDataNascimento());
-        funcionario.setPapel(dto.getPapel());
-        funcionario.setHashSenha(passwordEncoder.encode(dto.getSenha()));
+        funcionario.setRole(dto.getRole());
+        funcionario.setPassword(passwordEncoder.encode(dto.getSenha()));
         funcionario.setAtivo(true);
 
         // Dados de Funcionario
@@ -125,10 +125,10 @@ public class FuncionarioService {
         funcionario.setTelefone(dto.getTelefone());
         funcionario.setEmail(dto.getEmail());
         funcionario.setDataNascimento(dto.getDataNascimento());
-        funcionario.setPapel(dto.getPapel());
+        funcionario.setRole(dto.getRole());
 
         if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
-            funcionario.setHashSenha(passwordEncoder.encode(dto.getSenha()));
+            funcionario.setPassword(passwordEncoder.encode(dto.getSenha()));
         }
 
         // Dados de Funcionario

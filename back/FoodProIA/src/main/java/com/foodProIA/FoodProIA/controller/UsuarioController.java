@@ -40,7 +40,7 @@ public class UsuarioController {
 
 
     @PostMapping
-    public UsuarioResponseDTO inserir(@Valid @RequestBody UsuarioRequestDTO usuario){
+    public UsuarioResponseDTO inserir(@Valid @RequestBody UsuarioRequestDTO usuario){   
 
         return usuarioService.inserir(usuario);
 

@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-import com.foodProIA.FoodProIA.enums.Papel;
+import com.foodProIA.FoodProIA.enums.UserRole;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,7 +32,7 @@ public class UsuarioRequestDTO {
     @NotNull
     private LocalDate dataNascimento;
     @NotNull
-    private Papel papel;
+    private UserRole role;
 
     
     @Size(min = 6, message = "A senha deve ter pelo menos 6 caracteres.")
@@ -41,5 +41,5 @@ public class UsuarioRequestDTO {
         message = "A senha deve conter pelo menos uma letra maiúscula, uma minúscula e um número."
     )
     
-    private String senha;
+    private String password;
 }

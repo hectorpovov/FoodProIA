@@ -3,7 +3,7 @@ package com.foodProIA.FoodProIA.dto.response;
 import java.time.LocalDate;
 
 import com.foodProIA.FoodProIA.entity.UsuarioEntity;
-import com.foodProIA.FoodProIA.enums.Papel;
+import com.foodProIA.FoodProIA.enums.UserRole;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +28,7 @@ public class UsuarioResponseDTO {
 
     private boolean ativo;
 
-    private Papel papel;
+    private UserRole role;
 
 
     public UsuarioResponseDTO(UsuarioEntity usuario){
@@ -39,7 +39,7 @@ public class UsuarioResponseDTO {
         this.email = usuario.getEmail();
         this.dataNascimento = usuario.getDataNascimento();
         this.ativo = usuario.isAtivo();
-        this.papel = usuario.getPapel();
+        this.role = usuario.getRole();
     }
 
 }

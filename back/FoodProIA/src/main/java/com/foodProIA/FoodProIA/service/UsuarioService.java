@@ -44,8 +44,8 @@ public class UsuarioService {
 
         UsuarioEntity usuarioEntity = new UsuarioEntity();
 
-        String hash = passwordEncoder.encode(usuario.getSenha());
-        usuarioEntity.setHashSenha(hash);
+        String hash = passwordEncoder.encode(usuario.getPassword());
+        usuarioEntity.setPassword(hash);
 
         usuarioEntity.setAtivo(true);
         copiarDados(usuario, usuarioEntity);      
@@ -75,8 +75,8 @@ public class UsuarioService {
         }   
 
 
-        if (usuario.getSenha() != null && !usuario.getSenha().isBlank()) {
-            usuarioEntity.setHashSenha(passwordEncoder.encode(usuario.getSenha()));
+        if (usuario.getPassword() != null && !usuario.getPassword().isBlank()) {
+            usuarioEntity.setPassword(passwordEncoder.encode(usuario.getPassword()));
         }
 
         copiarDados(usuario, usuarioEntity);   
@@ -102,7 +102,7 @@ public class UsuarioService {
         usuarioEntity.setNome(usuario.getNome());
         usuarioEntity.setDataNascimento(usuario.getDataNascimento());
         usuarioEntity.setEmail(usuario.getEmail());
-        usuarioEntity.setPapel(usuario.getPapel());
+        usuarioEntity.setRole(usuario.getRole());
         usuarioEntity.setTelefone(usuario.getTelefone());   
     }
 

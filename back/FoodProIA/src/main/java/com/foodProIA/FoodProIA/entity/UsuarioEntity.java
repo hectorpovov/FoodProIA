@@ -1,9 +1,15 @@
 package com.foodProIA.FoodProIA.entity;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
-import com.foodProIA.FoodProIA.enums.Papel;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.foodProIA.FoodProIA.enums.UserRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +27,7 @@ import lombok.Setter;
 @Table(name = "TB_USUARIO")
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-public class UsuarioEntity {
+public class UsuarioEntity implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,12 +67,12 @@ public class UsuarioEntity {
     @Column(nullable = false)
     @Getter
     @Setter
-    private Papel papel;
+    private UserRole role;
 
     @Column(nullable = false)
     @Getter
     @Setter
-    private String hashSenha;
+    private String password;
 
     @Override
     public int hashCode(){
@@ -81,6 +87,43 @@ public class UsuarioEntity {
 
         UsuarioEntity other = (UsuarioEntity) obj;
         return Objects.equals(id, other.id);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), 
+                                                       new SimpleGrantedAuthority("ROLE_GESTOR"), 
+                                                       new SimpleGrantedAuthority("ROLE_OPERADOR"));
+
+        else if (this.role == UserRole.GESTOR) return List.of(new SimpleGrantedAuthority("ROLE_GESTOR"), 
+                                                              new SimpleGrantedAuthority("ROLE_OPERADOR"));
+        
+        else return List.of(new SimpleGrantedAuthority("ROLE_OPERADOR"));
+    }
+
+    @Override
+    public String getUsername(){
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired(){
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked(){
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired(){
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled(){
+        return true;
     }
 
 }
