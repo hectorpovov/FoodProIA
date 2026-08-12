@@ -82,14 +82,14 @@ public class FuncionarioService {
         funcionario.setEmail(dto.getEmail());
         funcionario.setDataNascimento(dto.getDataNascimento());
         funcionario.setRole(dto.getRole());
-        funcionario.setPassword(passwordEncoder.encode(dto.getSenha()));
+        funcionario.setPassword(passwordEncoder.encode(dto.getPassword()));
         funcionario.setAtivo(true);
 
         // Dados de Funcionario
         funcionario.setCargo(dto.getCargo());
         funcionario.setCustoPorHora(dto.getCustoPorHora());
-        funcionario.setEmpresa(empresa);
-        funcionario.setSetor(setor);
+        empresa.adicionaFuncionario(funcionario);
+        setor.adicionaFuncionario(funcionario);
         funcionario.setEndereco(endereco);
 
         funcionarioRepository.save(funcionario);
@@ -127,15 +127,19 @@ public class FuncionarioService {
         funcionario.setDataNascimento(dto.getDataNascimento());
         funcionario.setRole(dto.getRole());
 
-        if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
-            funcionario.setPassword(passwordEncoder.encode(dto.getSenha()));
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+            funcionario.setPassword(passwordEncoder.encode(dto.getPassword()));
         }
 
         // Dados de Funcionario
         funcionario.setCargo(dto.getCargo());
         funcionario.setCustoPorHora(dto.getCustoPorHora());
         funcionario.setEmpresa(empresa);
-        funcionario.setSetor(setor);
+        if(!funcionario.getSetor().equals(setor)){
+            funcionario.getSetor().removerFuncionario(funcionario);
+            setor.adicionaFuncionario(funcionario);
+        }
+        
 
         EnderecoEntity endereco = funcionario.getEndereco();
 
@@ -158,6 +162,7 @@ public class FuncionarioService {
     @Transactional
     public void excluir(Long id){
         FuncionarioEntity funcionario = funcionarioRepository.findById(id).orElseThrow(() -> new FuncionarioNaoEncontradoException());
+        funcionario.getEmpresa().removerFuncionario(funcionario);
         funcionarioRepository.delete(funcionario);
     }
 

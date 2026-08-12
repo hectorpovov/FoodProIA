@@ -88,6 +88,7 @@ public class SetorService {
     @Transactional
     public void excluir(Long id){
         SetorEntity setorEntity = setorRepository.findById(id).orElseThrow(() -> new SetorNaoEncontradoException() );
+        setorEntity.getEmpresa().removerSetor(setorEntity);
         setorRepository.delete(setorEntity);
     }
 

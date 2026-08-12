@@ -1,5 +1,10 @@
 package com.foodProIA.FoodProIA.dto.request;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.foodProIA.FoodProIA.enums.TipoInsumo;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -13,29 +18,22 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmpresaRequestDTO {
-
-
-    @NotBlank
-    private String cnpj;
+public class FornecedorRequestDTO {
 
     @NotBlank
-    private String razaoSocial;
-
+    private String nome;
     @NotBlank
-    private String nomeFantasia;
-
+    private String registroEmpresa;
+    @NotBlank
+    private String telefone;
     @NotBlank
     @Email
     private String email;
-
-    @NotBlank
-    private String telefone;
-
-    private String observacoes;
-
+    @NotNull
+    private TipoInsumo tipoInsumo;
+    private MultipartFile certidaoDeNegativas;
+    private MultipartFile licensasDeFuncionamento;
+    private List<MultipartFile> certificacoesDeQualidade;
     @NotNull
     private EnderecoRequestDTO endereco;
-
-
 }

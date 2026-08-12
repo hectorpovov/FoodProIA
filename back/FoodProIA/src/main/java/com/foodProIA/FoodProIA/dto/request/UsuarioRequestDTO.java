@@ -27,6 +27,7 @@ public class UsuarioRequestDTO {
     private String cpf;
     @NotBlank
     private String telefone;
+    @NotBlank
     @Email
     private String email;
     @NotNull

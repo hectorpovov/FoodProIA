@@ -51,6 +51,11 @@ public class SetorEntity {
         funcionario.setSetor(this);
     }
 
+    public void removerFuncionario(FuncionarioEntity funcionario) {
+        funcionarios.remove(funcionario);
+        funcionario.setSetor(null);
+    }
+
     @Override
     public int hashCode(){
         return Objects.hash(id);

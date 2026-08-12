@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.foodProIA.FoodProIA.enums.TipoInsumo;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,27 +17,34 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "TB_INSUMO")
+@Table(name = "TB_MODELO_TESTE")
 @Getter
 @NoArgsConstructor
-
-public class InsumoEntity {
+public class ModeloTesteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     @Setter
+    @Column(nullable = false, unique = true)
     private String nome;
 
-    @Setter
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TipoInsumo tipoInsumo;
+    @OneToMany(mappedBy = "modeloTeste",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<TipoParametroEntity> parametros = new ArrayList<>();
 
-    @OneToMany(mappedBy = "insumo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InsumoRoteiroEntity> roteiros = new ArrayList<>();
+    public void adicionaParametro(TipoParametroEntity parametro){
+        parametros.add(parametro);
+        parametro.setModeloTeste(this);;
+    }
+
+    public void removeParametro(TipoParametroEntity parametro){
+        parametros.remove(parametro);
+        parametro.setModeloTeste(null);
+    }
+
 
     @Override
     public int hashCode(){
@@ -54,10 +57,8 @@ public class InsumoEntity {
         if(obj == null) return false;
         if(getClass()!= obj.getClass()) return false;
 
-        InsumoEntity other = (InsumoEntity) obj;
+        ModeloTesteEntity other = (ModeloTesteEntity) obj;
         return Objects.equals(id, other.id);
     }
-
-
 
 }

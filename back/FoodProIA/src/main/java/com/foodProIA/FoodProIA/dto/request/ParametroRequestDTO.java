@@ -1,7 +1,7 @@
 package com.foodProIA.FoodProIA.dto.request;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,13 +11,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioAuthenticationRequestDTO {
+public class ParametroRequestDTO {
 
     @NotBlank
-    @Email
-    private String email;
+    private String valor;
+
+    @NotNull
+    private Long tipoParametroId;
+
     
-    @NotBlank
-    private String password;
-
 }

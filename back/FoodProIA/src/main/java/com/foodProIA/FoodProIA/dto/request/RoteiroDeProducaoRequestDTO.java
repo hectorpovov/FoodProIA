@@ -1,7 +1,9 @@
 package com.foodProIA.FoodProIA.dto.request;
 
-import jakarta.validation.constraints.Email;
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,13 +13,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioAuthenticationRequestDTO {
+public class RoteiroDeProducaoRequestDTO {
 
     @NotBlank
-    @Email
-    private String email;
-    
-    @NotBlank
-    private String password;
+    private String nome;
 
+    @NotNull
+    private boolean status;
+
+    private List<InsumoRoteiroRequestDTO> insumos;
 }

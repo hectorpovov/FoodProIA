@@ -55,11 +55,15 @@ public class EmpresaEntity {
     @Column
     private String observacoes;
 
-    @OneToMany(mappedBy = "empresa")
-    private List<FuncionarioEntity> funcionarios = new ArrayList<>();;
+    @OneToMany(mappedBy = "empresa",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<FuncionarioEntity> funcionarios = new ArrayList<>();
 
-    @OneToMany(mappedBy = "empresa")
-    private List<SetorEntity> setores = new ArrayList<>();;
+    @OneToMany(mappedBy = "empresa",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<SetorEntity> setores = new ArrayList<>();
 
     @Setter
     @OneToOne(cascade = CascadeType.ALL)
@@ -70,10 +74,19 @@ public class EmpresaEntity {
         funcionarios.add(funcionario);
         funcionario.setEmpresa(this);
     }
+    public void removerFuncionario(FuncionarioEntity funcionario) {
+        funcionarios.remove(funcionario);
+        funcionario.getSetor().removerFuncionario(funcionario);
+        funcionario.setEmpresa(null);
+    }
 
     public void adicionaSetor(SetorEntity setor){
         setores.add(setor);
         setor.setEmpresa(this);
+    }
+    public void removerSetor(SetorEntity setor) {
+        setores.remove(setor);
+        setor.setEmpresa(null);
     }
 
     @Override
