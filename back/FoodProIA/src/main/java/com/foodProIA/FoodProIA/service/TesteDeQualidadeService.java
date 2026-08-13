@@ -119,10 +119,12 @@ public class TesteDeQualidadeService {
                 dto.getParametros()
         );
 
-        teste.setDataEHorario(
-                dto.getDataEHorario()
-        );
-
+        if(dto.getDataEHorario() != null){
+            teste.setDataEHorario(
+                    dto.getDataEHorario()
+            );
+        }
+        
         teste.setModelo(modelo);
 
         /*

@@ -68,8 +68,9 @@ public class ModeloTesteService {
 
         ModeloTesteEntity modeloTeste = buscarEntidade(id);
 
+        if(dto.getNome() != null){
         modeloTeste.setNome(dto.getNome());
-
+        }
         /*
          * Como TipoParametro é dependente de ModeloTeste,
          * os parâmetros antigos são removidos e novos são
@@ -79,14 +80,15 @@ public class ModeloTesteService {
          * antigos sejam excluídos do banco.
          */
 
-        List<TipoParametroEntity> parametrosAtuais =
-                new ArrayList<>(modeloTeste.getParametros());
-
-        for (TipoParametroEntity parametro : parametrosAtuais) {
-            modeloTeste.removeParametro(parametro);
-        }
-
         if (dto.getParametros() != null) {
+            List<TipoParametroEntity> parametrosAtuais =
+                    new ArrayList<>(modeloTeste.getParametros());
+
+            for (TipoParametroEntity parametro : parametrosAtuais) {
+                modeloTeste.removeParametro(parametro);
+            }
+
+        
 
             for (TipoParametroRequestDTO parametroDTO : dto.getParametros()) {
 
