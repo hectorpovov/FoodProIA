@@ -6,4 +6,5 @@ import com.foodProIA.FoodProIA.entity.ParametroEntity;
 
 public interface ParametroRepository extends JpaRepository<ParametroEntity,Long>{
 
+    boolean existsByTipo_Id(Long tipoParametroId);
 }

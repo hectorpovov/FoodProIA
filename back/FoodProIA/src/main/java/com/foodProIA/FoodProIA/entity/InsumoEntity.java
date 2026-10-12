@@ -14,8 +14,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,24 +26,26 @@ import lombok.Setter;
 @Table(name = "TB_INSUMO")
 @Getter
 @NoArgsConstructor
-
+@Setter
 public class InsumoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(nullable = false)
-    @Setter
     private String nome;
 
-    @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoInsumo tipoInsumo;
 
     @OneToMany(mappedBy = "insumo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InsumoRoteiroEntity> roteiros = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "insumos")
+    private List<TipoEtapaEntity> tipoEtapas = new ArrayList<>();
 
     @Override
     public int hashCode(){

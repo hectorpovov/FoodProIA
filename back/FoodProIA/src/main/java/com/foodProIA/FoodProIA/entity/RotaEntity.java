@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,26 +22,24 @@ import lombok.Setter;
 @Entity
 @Table(name = "TB_ROTA")
 @Getter
+@Setter
 @NoArgsConstructor
 public class RotaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Setter
     @Column(nullable = false)
     private String nome;
 
-    @Setter
     @Column(nullable = false)
     private String cidade;
 
-    @Setter
     @Column(nullable = false)
     private String codigo;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "fornecedor_id", nullable = false)
     private FornecedorEntity fornecedor;
@@ -51,14 +50,11 @@ public class RotaEntity {
             orphanRemoval = true)
     private List<ProgramacaoRotaEntity> programacoes = new ArrayList<>();
 
-    @Setter
     private String codigoDeRodovia;
 
-    @Setter
     @Column(nullable = false)
     private Double quantidade;
 
-    @Setter
     @Column(nullable = false)
     private int prioridade;
 

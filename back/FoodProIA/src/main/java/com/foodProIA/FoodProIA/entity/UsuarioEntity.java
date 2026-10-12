@@ -19,59 +19,46 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "TB_USUARIO")
+@Getter
+@Setter
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 public class UsuarioEntity implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(nullable = false)
-    @Getter
-    @Setter
     private String nome;
 
     @Column(nullable = false, unique = true)
-    @Getter
-    @Setter
     private String cpf;
 
     @Column(nullable = false)
-    @Getter
-    @Setter
     private String telefone;
 
     @Column(nullable = false, unique = true)
-    @Getter
-    @Setter
     private String email;
 
     @Column(nullable = false)
-    @Getter
-    @Setter
     private LocalDate dataNascimento;
 
     @Column(nullable = false)
-    @Getter
-    @Setter
     private boolean ativo;
 
     @Column(nullable = false)
-    @Getter
-    @Setter
     private UserRole role;
 
     @Column(nullable = false)
-    @Getter
-    @Setter
     private String password;
 
     @Override

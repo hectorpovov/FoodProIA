@@ -21,6 +21,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,47 +29,40 @@ import lombok.Setter;
 @Entity
 @Table(name = "TB_FORNECEDOR")
 @Getter
+@Setter
 @NoArgsConstructor
 public class FornecedorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Setter
     @Column(nullable = false)
     private String nome;
 
-    @Setter
     private String registroEmpresa;
 
-    @Setter
     @Column(nullable = false)    
     private String telefone;
 
-    @Setter
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoInsumo tipoInsumo;
 
-    @Setter
     @Column(nullable = false)
     private boolean status;
 
 
-    @Setter
     @Lob
     private byte[] certidaoDeNegativas;
-    
-    @Setter
+
     @Lob
     private byte[] licensasDeFuncionamento;
-    
-    @Setter
+
     @ElementCollection
     @CollectionTable(
         name = "TB_FORNECEDOR_CERTIFICACAO",
@@ -83,7 +77,6 @@ public class FornecedorEntity {
                orphanRemoval = true)
     private List<FraudeEntity> fraudes = new ArrayList<>();
 
-    @Setter
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", unique = true, nullable = false)
     private EnderecoEntity endereco;
@@ -92,6 +85,10 @@ public class FornecedorEntity {
                cascade = CascadeType.ALL,
                orphanRemoval = true)
     private List<RotaEntity> rotas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "fornecedor")
+    private List<LoteMateriaPrimaEntity> lotesMateriaPrima;
+
 
     public void adicionarRota(RotaEntity rota) {
         rotas.add(rota);

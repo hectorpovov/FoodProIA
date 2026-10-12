@@ -11,8 +11,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,23 +22,32 @@ import lombok.Setter;
 @Entity
 @Table(name = "TB_ROTEIRO_DE_PRODUCAO")
 @Getter
+@Setter
 @NoArgsConstructor
 public class RoteiroDeProducaoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
 
-    @Setter
     @Column(nullable = false)
     private String nome;
 
-    @Setter
     private boolean status;
 
     @OneToMany(mappedBy = "roteiro", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InsumoRoteiroEntity> insumos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "roteiro", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MateriaPrimaRoteiroEntity> materiasPrimas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "roteiro", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PlanejamentoDeProducaoEntity> planejamentos = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "roteirosDeProducao")
+    private List<TipoEtapaEntity> tipoEtapas = new ArrayList<>();
 
     @Override
     public int hashCode(){

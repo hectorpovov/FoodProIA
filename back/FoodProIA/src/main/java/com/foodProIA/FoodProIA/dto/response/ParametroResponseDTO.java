@@ -1,7 +1,5 @@
 package com.foodProIA.FoodProIA.dto.response;
 
-import java.util.List;
-
 import com.foodProIA.FoodProIA.dto.summary.TesteDeQualidadeSummaryDTO;
 import com.foodProIA.FoodProIA.entity.ParametroEntity;
 import com.foodProIA.FoodProIA.entity.TipoParametroBooleanoEntity;
@@ -24,7 +22,7 @@ public class ParametroResponseDTO {
 
     private TipoParametroResponseDTO tipo;
 
-    private List<TesteDeQualidadeSummaryDTO> testesDeQualidade;
+    private TesteDeQualidadeSummaryDTO testeDeQualidade;
 
     public ParametroResponseDTO(ParametroEntity parametro){
         this.id = parametro.getId();
@@ -42,9 +40,6 @@ public class ParametroResponseDTO {
             this.tipo = new TipoParametroTextualResponseDTO(textual);
         }
         
-        this.testesDeQualidade = parametro.getTestesDeQualidade()
-                                        .stream()
-                                        .map(TesteDeQualidadeSummaryDTO::new)
-                                        .toList();
+        this.testeDeQualidade = new TesteDeQualidadeSummaryDTO(parametro.getTesteDeQualidade());
     }
 }

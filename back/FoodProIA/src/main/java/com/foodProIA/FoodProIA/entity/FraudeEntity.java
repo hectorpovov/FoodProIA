@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,31 +19,28 @@ import lombok.Setter;
 @Entity
 @Table(name = "TB_FRAUDE")
 @Getter
+@Setter
 @NoArgsConstructor
 public class FraudeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Setter
     @Column(nullable = false)
     private LocalDateTime dataEHorario;
 
-    @Setter
     @Column(nullable = false)
     private String classificacao;
 
-    @Setter
     @Column(nullable = false)
     private String descricao;
 
-    @Setter 
     @ManyToOne
     @JoinColumn(name = "teste_qualidade_id")
     private TesteDeQualidadeEntity testeDeQualidade;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
     private FornecedorEntity fornecedor;

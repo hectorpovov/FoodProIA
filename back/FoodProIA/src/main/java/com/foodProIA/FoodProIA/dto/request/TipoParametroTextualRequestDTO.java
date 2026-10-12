@@ -21,6 +21,7 @@ public class TipoParametroTextualRequestDTO extends TipoParametroRequestDTO {
 
     public TipoParametroTextualRequestDTO(TipoParametroTextualEntity entity) {
         super();
+        setId(entity.getId());
         setNome(entity.getNome());
         setEsperado(entity.getEsperado());
         setPossibilidades(entity.getPossibilidades());

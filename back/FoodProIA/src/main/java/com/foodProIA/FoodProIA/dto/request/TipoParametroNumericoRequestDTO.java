@@ -21,6 +21,7 @@ public class TipoParametroNumericoRequestDTO extends TipoParametroRequestDTO {
 
     public TipoParametroNumericoRequestDTO(TipoParametroNumericoEntity entity) {
         super();
+        setId(entity.getId());
         setNome(entity.getNome());
         setValorMinimo(entity.getValorMinimo());
         setValorMaximo(entity.getValorMaximo());

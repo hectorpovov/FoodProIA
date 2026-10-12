@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,28 +18,26 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_insumo_roteiro")
 @Getter
+@Setter
 @NoArgsConstructor
 public class InsumoRoteiroEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "insumo_id", nullable = false)
     private InsumoEntity insumo;
 
-    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roteiro_id", nullable = false)
     private RoteiroDeProducaoEntity roteiro;
 
-    @Setter
     @Column(nullable = false)
     private Double quantidade;
 
-    @Setter
     @Column(nullable = false)
     private String unidadeDeMedida;
 

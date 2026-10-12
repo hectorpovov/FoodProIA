@@ -33,6 +33,8 @@ import lombok.Setter;
 })
 public abstract class TipoParametroRequestDTO {
 
+    private Long id;
+
     @NotBlank
     private String nome;
 }

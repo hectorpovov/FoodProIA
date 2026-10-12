@@ -17,6 +17,7 @@ public class TipoParametroBooleanoRequestDTO extends TipoParametroRequestDTO {
 
     public TipoParametroBooleanoRequestDTO(TipoParametroBooleanoEntity entity) {
         super();
+        setId(entity.getId());
         setNome(entity.getNome());
         setValorEsperado(entity.isValorEsperado());
 

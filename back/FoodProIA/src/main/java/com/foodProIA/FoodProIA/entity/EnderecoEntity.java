@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,44 +17,37 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
-
+@Setter
 @Entity
 @Table(name = "TB_ENDERECO")
 public class EnderecoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Setter
     private String complemento;
 
     @Column(nullable = false)
-    @Setter
     private String numero;
 
     @Column(nullable = false)
-    @Setter
     private String rua;
 
     @Column(nullable = false)
-    @Setter
     private String bairro;
 
     @Column(nullable = false)
-    @Setter
     private String cidade;
 
     @Column(nullable = false)
-    @Setter
     private String estado;
 
     @Column(nullable = false)
-    @Setter
     private String pais;
 
     @Column(nullable = false)
-    @Setter
     private String cep;
 
     @Override

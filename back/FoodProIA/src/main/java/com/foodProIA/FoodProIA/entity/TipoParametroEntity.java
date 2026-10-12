@@ -12,6 +12,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,19 +20,19 @@ import lombok.Setter;
 @Entity
 @Table(name = "TB_TIPO_PARAMETRO")
 @Getter
+@Setter
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class TipoParametroEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;   
 
-    @Setter
     @Column(nullable = false)
     private String nome;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "modelo_teste_id")
     private ModeloTesteEntity modeloTeste;

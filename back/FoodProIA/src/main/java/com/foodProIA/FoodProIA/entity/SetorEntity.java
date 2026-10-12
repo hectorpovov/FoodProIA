@@ -15,6 +15,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,28 +23,27 @@ import lombok.Setter;
 @Entity
 @Table(name = "TB_SETOR")
 @Getter
+@Setter
 @NoArgsConstructor
 public class SetorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
     
     @Column(nullable = false)
     @Lob
-    @Setter
     private String nome;
 
     @Column
-    @Setter
     private String descricao;
     
     @OneToMany(mappedBy = "setor")
-    private List<FuncionarioEntity> funcionarios = new ArrayList<>();;
+    private List<FuncionarioEntity> funcionarios = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "id_empresa", nullable = false)
-    @Setter
     private EmpresaEntity empresa;
 
     public void adicionaFuncionario(FuncionarioEntity funcionario){

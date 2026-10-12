@@ -1,6 +1,5 @@
 package com.foodProIA.FoodProIA.entity;
 
-import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -9,10 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,29 +18,29 @@ import lombok.Setter;
 @Entity
 @Table(name = "TB_PARAMETRO")
 @Getter
+@Setter
 @NoArgsConstructor
 public class ParametroEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Setter
     @Column(nullable = false)
     private String valor;
 
-    @Setter
+    @ManyToOne 
+    @JoinColumn(name = "etapa_id")
+    private EtapaEntity etapa;
+
     @ManyToOne
     @JoinColumn(name = "tipo_parametro_id")
     private TipoParametroEntity tipo;
 
-    @Setter
-    @ManyToMany
-    @JoinTable(name = "parametro_teste_de_qualidade",
-                joinColumns = @JoinColumn(name = "parametro_id"),
-                inverseJoinColumns = @JoinColumn(name = "teste_de_qualidade_id")
-    )
-    private List<TesteDeQualidadeEntity> testesDeQualidade;
+    @ManyToOne
+    @JoinColumn(name = "teste_de_qualidade_id")
+    private TesteDeQualidadeEntity testeDeQualidade;
 
     public ParametroEntity(String valor, TipoParametroEntity tipo){
         this.valor = valor;

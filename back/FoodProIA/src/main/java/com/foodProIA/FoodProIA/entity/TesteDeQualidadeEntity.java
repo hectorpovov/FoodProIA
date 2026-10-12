@@ -11,10 +11,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,22 +22,26 @@ import lombok.Setter;
 @Entity
 @Table(name = "TB_TESTE_DE_QUALIDADE")
 @Getter
+@Setter
 @NoArgsConstructor
 public class TesteDeQualidadeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Setter
     private LocalDateTime dataEHorario;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "modelo_teste_id")
     private ModeloTesteEntity modelo;
 
-    @ManyToMany(mappedBy = "testesDeQualidade")
+    @ManyToOne
+    @JoinColumn(name = "lote_materia_prima_id")
+    private LoteMateriaPrimaEntity loteMateriaPrima;
+
+    @OneToMany(mappedBy = "testeDeQualidade")
     private List<ParametroEntity> parametros = new ArrayList<>();
 
     @OneToMany(mappedBy = "testeDeQualidade",
@@ -57,12 +61,12 @@ public class TesteDeQualidadeEntity {
 
     public void adicionarParametro(ParametroEntity parametro) {
         parametros.add(parametro);
-        parametro.getTestesDeQualidade().add(this);
+        parametro.setTesteDeQualidade(this);
     }
 
     public void removerParametro(ParametroEntity parametro) {
         parametros.remove(parametro);
-        parametro.getTestesDeQualidade().remove(this);
+        parametro.setTesteDeQualidade(null);
     }
 
 

@@ -1,13 +1,16 @@
 package com.foodProIA.FoodProIA.entity;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -35,9 +38,24 @@ public class FuncionarioEntity extends UsuarioEntity{
     @JoinColumn(name = "empresa_id", nullable = false)
     private EmpresaEntity empresa;
 
+    @ManyToOne
+    @JoinColumn(name = "turno_id")
+    private TurnoEntity turno;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", unique = true, nullable = false)
     private EnderecoEntity endereco;
+
+    @OneToMany(mappedBy = "recebedor")
+    private List<LoteMateriaPrimaEntity> lotesMateriasPrimas;
+
+    @ManyToMany(mappedBy = "funcionarios")
+    private List<RegistroManutencaoEntity> registrosManutencao;
+
+    @OneToMany(mappedBy = "funcionario")
+    private List<LoteInsumoEntity> lotesInsumos;
+
+    
 
     @Override
     public int hashCode(){
