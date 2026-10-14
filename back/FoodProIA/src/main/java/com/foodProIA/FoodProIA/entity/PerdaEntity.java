@@ -39,11 +39,21 @@ public class PerdaEntity {
     @JoinColumn(name = "etapa_id")
     private EtapaEntity etapa;
 
-    @OneToMany(mappedBy = "perda")
-    private List<LoteMateriaPrimaPerdaEntity> lotesMateriaPrima = new ArrayList<>();
+    @OneToMany(
+        mappedBy = "perda",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private List<LoteMateriaPrimaPerdaEntity> lotesMateriaPrima =
+            new ArrayList<>();
 
-    @OneToMany(mappedBy = "perda")
-    private List<LoteInsumoPerdaEntity> lotesInsumo = new ArrayList<>();
+    @OneToMany(
+        mappedBy = "perda",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private List<LoteInsumoPerdaEntity> lotesInsumo =
+            new ArrayList<>();
 
     @Override
     public int hashCode(){
